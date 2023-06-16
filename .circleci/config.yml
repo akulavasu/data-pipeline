@@ -14,7 +14,7 @@ jobs:
       - run: 
           name: Installation of imagemagick
           command: |
-            sed -i -e 's/deb.debian.org/archive.debian.org/g' -e 's|security.debian.org|archive.debian.org/|g' -e '/stretch-updates/d' /etc/apt/sources.list
+            sudo sed -i -e 's/deb.debian.org/archive.debian.org/g' -e 's|security.debian.org|archive.debian.org/|g' -e '/stretch-updates/d' /etc/apt/sources.list
             sudo apt-get update 
             sudo apt-get install -y imagemagick
       - run:
