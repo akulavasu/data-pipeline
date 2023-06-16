@@ -3,7 +3,7 @@ version: 2.0
 jobs:
   unit-tests:
     docker:
-      - image: circleci/openjdk:stretch
+      - image: circleci/openjdk
     resource_class: medium
     working_directory: ~/inquiry-data-pipeline
     steps:
