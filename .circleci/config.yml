@@ -3,7 +3,7 @@ version: 2.0
 jobs:
   unit-tests:
     docker:
-      - image: circleci/openjdk:11-jdk-buster-node-browsers-legacy
+      - image: circleci/openjdk:stretch
     resource_class: medium
     working_directory: ~/inquiry-data-pipeline
     steps:
@@ -14,7 +14,8 @@ jobs:
       - run: 
           name: Installation of imagemagick
           command: |
-            sudo apt-get update || sudo apt-get update
+            sed -i -e 's/deb.debian.org/archive.debian.org/g' -e 's|security.debian.org|archive.debian.org/|g' -e '/stretch-updates/d' /etc/apt/sources.list
+            sudo apt-get update 
             sudo apt-get install -y imagemagick
       - run:
           name: Execute coverage report
