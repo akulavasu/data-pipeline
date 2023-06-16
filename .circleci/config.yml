@@ -3,7 +3,7 @@ version: 2.0
 jobs:
   unit-tests:
     docker:
-      - image: circleci/openjdk
+      - image: circleci/openjdk:11-buster-node-browsers-legacy
     resource_class: medium
     working_directory: ~/inquiry-data-pipeline
     steps:
