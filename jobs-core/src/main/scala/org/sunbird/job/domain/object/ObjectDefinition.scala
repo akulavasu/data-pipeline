@@ -69,4 +69,15 @@ class ObjectDefinition(val objectType: String, val version: String, val schema: 
     val properties = schema.getOrElse("properties", Map[String, AnyRef]()).asInstanceOf[Map[String, AnyRef]]
     properties.keySet.toList
   }
+
+  def getOneOfProps(): List[String] = {
+    val oneOfProps: List[String] = if (config.contains("oneOfProps")) config.getOrElse("oneOfProps", List()).asInstanceOf[List[String]] else List()
+    oneOfProps
+  }
+  def getPropsType(propNames: List[String]): Map[String, String] = {
+    if (schema.isEmpty || propNames.isEmpty) Map() else {
+      val properties = schema.getOrElse("properties", Map[String, AnyRef]()).asInstanceOf[Map[String, AnyRef]]
+      properties.filter(prop => propNames.contains(prop._1)).map(prop => (prop._1, prop._2.asInstanceOf[Map[String, AnyRef]].getOrElse("type", "").asInstanceOf[String]))
+    }
+  }
 }

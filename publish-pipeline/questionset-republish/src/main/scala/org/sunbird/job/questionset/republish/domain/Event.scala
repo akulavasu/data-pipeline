@@ -8,7 +8,7 @@ import scala.collection.JavaConverters._
 
 class Event(eventMap: java.util.Map[String, Any], partition: Int, offset: Long) extends JobRequest(eventMap, partition, offset) {
 
-	private val jobName = "questionset-publish"
+	private val jobName = "questionset-republish"
 
 	private val objectTypes = List("Question","QuestionSet")
 	private val mimeTypes = List("application/vnd.sunbird.question", "application/vnd.sunbird.questionset")
@@ -31,6 +31,8 @@ class Event(eventMap: java.util.Map[String, Any], partition: Int, offset: Long) 
     val pkgVersion = readOrDefault[Int]("edata.metadata.pkgVersion", 0)
     pkgVersion.toDouble
   }
+
+	def schemaVersion: String = readOrDefault[String]("edata.metadata.schemaVersion", "1.0")
 
 	def validEvent(): Boolean = {
 		(StringUtils.equals("republish", action) && StringUtils.isNotBlank(objectId)) && (objectTypes.contains(objectType) && mimeTypes.contains(mimeType) && pkgVersion > 0)
